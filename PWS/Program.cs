@@ -1,20 +1,17 @@
 using PWS.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IEmailService, EmailService>();
-//builder.Host.UseSerilog();
+builder.Host.UseSerilog();
 
-//Log.Logger = new LoggerConfiguration()
-//    .MinimumLevel.Information()
-//    .WriteTo.File("logs/logs-.txt")
-//    .WriteTo.Logger(lc => lc
-//        .Filter.ByIncludingOnly(evt => evt.Level == LogEventLevel.Information)
-//        .WriteTo.File("logs/requests-.txt",outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss}  {Message:lj} {Properties:j}{NewLine}{Exception}")
-//    )
-//    .CreateLogger();
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.File("logs/logs-.txt")
+    .CreateLogger();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,7 +22,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//app.UseSerilogRequestLogging();
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
