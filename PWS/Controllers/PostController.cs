@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace IvanL.Controllers
+namespace PWS.Controllers
 {
-    public class AboutController : Controller
+	public class PostController : Controller
 	{
 		public IActionResult Index()
 		{
